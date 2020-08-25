@@ -1,42 +1,17 @@
 const { Router } = require('express');
+const controller = require('../controllers/controller');
 
 const router = Router();
 
-router.get('/api/v1/restaurants', (req, res) => {
-  res.status(200);
+router.get('/api/v1/restaurants', controller.getRestaurants);
 
-});
+router.get('/api/v1/restaurants:id', controller.getOneRestaurant);
 
-router.get('/api/v1/restaurants:id', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    data: {
-      restaurant: 'mcdonalds'
-    }
-  });
-});
+router.post('/api/v1/restaurants', controller.createRestaurant);
 
-router.post('/api/v1/restaurants', (req, res) => {
-  res.status(201).json({
-    status: 'success',
-    data: {
-      restaurant: 'mcdonalds'
-    }
-  });
-});
+router.put('/api/v1/restaurants:id', controller.updateRestaurant);
 
-router.put('/api/v1/restaurants:id', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    data: {
-      restaurant: 'mcdonalds'
-    }
-  });
-})
-
-router.delete('/api/v1/restaurants:id', (req, res) => {
-
-});
+router.delete('/api/v1/restaurants:id', controller.deleteRestaurant);
 
 
 module.exports = router;
