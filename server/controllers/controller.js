@@ -58,8 +58,8 @@ module.exports.updateRestaurant = async (req, res) => {
   try {
     const results = await db.query(`
     UPDATE restaurants
-    SET name=$1, location=$2, price_range=$3 WHERE id = ${param} returning *`,
-      [data.name, data.location, data.price_range]
+    SET name=$1, location=$2, price_range=$3 WHERE id = $4 returning *`,
+      [data.name, data.location, data.price_range, param]
     );
     res.status(200).json({
       status: 'success',
@@ -77,8 +77,8 @@ module.exports.deleteRestaurant = async (req, res) => {
   const param = req.params.id;
   try {
     const results = await db.query(`
-    DELETE FROM restaurants WHERE id = ${param} returning *
-    `);
+    DELETE FROM restaurants WHERE id = $1 returning *
+    `, [param]);
     res.status(200).json({
       status: 'success',
       data: {
