@@ -7,7 +7,7 @@ const RestaurantDetail = React.lazy(() => import('./routes/RestaurantDetail'));
 const UpdatePage = React.lazy(() => import('./routes/UpdatePage'));
 
 const App = () => {
-  return <div>
+  return <div className="container">
     <Suspense fallback={<div></div>}>
       <Router>
         <Switch>
