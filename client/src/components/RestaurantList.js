@@ -17,7 +17,14 @@ const RestaurantList = (props) => {
       }
     }
     fetchData();
-  }, [])
+  }, []);
+
+  const deleteHandler = async (id) => {
+    const response = await RestaurantFinder.delete(`/${id}`);
+    setRestaurants(restaurants.filter(restaurant => {
+      return restaurant.id !== id;
+    }));
+  }
 
   return (
     <div className="list-group">
@@ -41,7 +48,7 @@ const RestaurantList = (props) => {
                 <td>{"$".repeat(restaurant.price_range)}</td>
                 <td>Reviews</td>
                 <td><button className="btn btn-warning">Update</button></td>
-                <td><button className="btn btn-danger">Delete</button></td>
+                <td><button onClick={() => deleteHandler(restaurant.id)} className="btn btn-danger">Delete</button></td>
               </tr>
             );
           })}
