@@ -17,7 +17,7 @@ module.exports.getRestaurants = async (req, res) => {
 };
 
 module.exports.getOneRestaurant = async (req, res) => {
-  const param = req.params.id.slice(1);
+  const param = req.params.id;
   try {
     const results = await db.query(`SELECT * FROM restaurants WHERE id = $1;`, [param]);
     res.status(200).json({
@@ -53,7 +53,7 @@ module.exports.createRestaurant = async (req, res) => {
 };
 
 module.exports.updateRestaurant = async (req, res) => {
-  const param = req.params.id.slice(1);
+  const param = req.params.id;
   const data = req.body;
   try {
     const results = await db.query(`
@@ -74,7 +74,7 @@ module.exports.updateRestaurant = async (req, res) => {
 };
 
 module.exports.deleteRestaurant = async (req, res) => {
-  const param = req.params.id.slice(1);
+  const param = req.params.id;
   try {
     const results = await db.query(`
     DELETE FROM restaurants WHERE id = ${param} returning *
