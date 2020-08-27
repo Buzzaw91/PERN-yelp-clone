@@ -13,5 +13,7 @@ router.put('/api/v1/restaurants/:id', controller.updateRestaurant);
 
 router.delete('/api/v1/restaurants/:id', controller.deleteRestaurant);
 
+router.post('/api/v1/restaurants/:id/addReview', controller.addReview);
+
 
 module.exports = router;

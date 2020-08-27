@@ -83,7 +83,7 @@ module.exports.deleteRestaurant = async (req, res) => {
     const results = await db.query(`
     DELETE FROM restaurants WHERE id = $1 returning *
     `, [param]);
-    res.status(200).json({
+    res.status(204).json({
       status: 'success',
       data: {
         restaurant: results.rows[0]
@@ -93,4 +93,34 @@ module.exports.deleteRestaurant = async (req, res) => {
   catch (err) {
     console.log(err);
   }
+};
+
+module.exports.addReview = async (req, res) => {
+  const param = req.params.id;
+  const data = req.body;
+  try {
+    const newReview = await db.query(`INSERT INTO reviews (
+      restaurant_id,
+      name,
+      review,
+      rating
+    )
+    values(
+      $1,
+      $2,
+      $3,
+      $4
+    ) returning * `, [param, data.name, data.review, data.rating]);
+    console.log(newReview);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        review: newReview.rows[0]
+      }
+    })
+
+  } catch (err) {
+    console.log(err);
+  }
+
 };
