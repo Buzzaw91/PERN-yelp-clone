@@ -21,7 +21,7 @@ module.exports.getOneRestaurant = async (req, res) => {
   try {
     const restaurant = await db.query(`SELECT * FROM restaurants WHERE id = $1;`, [param]);
 
-    const reviews = await db.query(`SELECT * FROM reviews WHERE id = $1;`, [param]);
+    const reviews = await db.query(`SELECT * FROM reviews WHERE restaurant_id = $1;`, [param]);
 
     res.status(200).json({
       status: 'success',
