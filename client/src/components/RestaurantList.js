@@ -21,16 +21,22 @@ const RestaurantList = (props) => {
     fetchData();
   }, []);
 
-  const deleteHandler = async (id) => {
+  const deleteHandler = async (e, id) => {
+    e.stopPropagation();
     const response = await RestaurantFinder.delete(`/${id}`);
     setRestaurants(restaurants.filter(restaurant => {
       return restaurant.id !== id;
     }));
   };
 
-  const updateHandler = (id) => {
+  const updateHandler = (e, id) => {
+    e.stopPropagation();
     history.push(`/restaurants/${id}/update`);
-  }
+  };
+
+  const selectRestaurantHandler = (id) => {
+    history.push(`/restaurants/${id}`);
+  };
 
   return (
     <div className="list-group">
@@ -48,13 +54,13 @@ const RestaurantList = (props) => {
         <tbody>
           {restaurants && restaurants.map(restaurant => {
             return (
-              <tr key={restaurant.id}>
+              <tr onClick={() => { selectRestaurantHandler(restaurant.id) }} key={restaurant.id}>
                 <td>{restaurant.name}</td>
                 <td>{restaurant.location}</td>
                 <td>{"$".repeat(restaurant.price_range)}</td>
                 <td>Reviews</td>
-                <td><button onClick={() => updateHandler(restaurant.id)} className="btn btn-warning">Update</button></td>
-                <td><button onClick={() => deleteHandler(restaurant.id)} className="btn btn-danger">Delete</button></td>
+                <td><button onClick={(e) => updateHandler(e, restaurant.id)} className="btn btn-warning">Update</button></td>
+                <td><button onClick={(e) => deleteHandler(e, restaurant.id)} className="btn btn-danger">Delete</button></td>
               </tr>
             );
           })}
