@@ -5,7 +5,7 @@ const StarRating = ({ rating }) => {
 
 
   for (let i = 1; i <= 5; i++) {
-    let rand = Math.ceil(Math.random() * 100);
+    let rand = Math.ceil(Math.random() * 1000);
     if (i <= rating) {
       stars.push(<i key={i + rand} className="fas fa-star text-warning"></i>);
     } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
